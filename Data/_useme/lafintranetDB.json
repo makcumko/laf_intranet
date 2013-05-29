@@ -1,0 +1,8 @@
+{
+    "name": "lafintranet",
+    "type": "mysql",
+    "host": "www.laf24.ru:3306",
+    "db": "lafintranet",
+    "user": "lafuser",
+    "password": "400879ujh1"
+}

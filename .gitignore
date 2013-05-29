@@ -1,0 +1,5 @@
+*.log
+App/View/Compiled
+App/View/Cache
+Data/Database
+.idea/

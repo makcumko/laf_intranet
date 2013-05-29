@@ -1,0 +1,13 @@
+{
+    "Login" : {
+        "login": "",
+        "password": ""
+    },
+
+    "Register" : {
+        "login": "",
+        "password": "",
+        "password2": "",
+        "name": ""
+    }
+}

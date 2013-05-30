@@ -81,21 +81,30 @@ class Ideas extends AbstractService {
 
 
     public function getVotes($id) {
-        $sql = "SELECT flag_yes, COUNT(id) cnt
-                FROM idea_votes
-                WHERE flag_deleted = 0
-                  AND idea_id = :0:
-                GROUP BY flag_yes";
+        $sql = "SELECT v.flag_yes, COUNT(v.id) cnt, GROUP_CONCAT(u.shortname) list
+                FROM idea_votes v
+                LEFT JOIN users u ON u.id = v.user_id
+                WHERE v.flag_deleted = 0
+                  AND u.flag_deleted = 0
+                  AND v.idea_id = :0:
+                GROUP BY v.flag_yes";
         $rows = $this->db->query($sql, $id);
 
         $result = [
             "yes" => 0,
             "no" => 0,
-            "total" => 0
+            "total" => 0,
+            "yeslist" => "",
+            "nolist" => ""
         ];
         if ($rows) foreach ($rows as $row) {
-            if ($row['flag_yes']) $result['yes'] = $row['cnt'];
-            else $result['no'] = $row['cnt'];
+            if ($row['flag_yes']) {
+                $result['yes'] = $row['cnt'];
+                $result['yeslist'] = $row['list'];
+            }  else {
+                $result['no'] = $row['cnt'];
+                $result['nolist'] = $row['list'];
+            }
             $result['total'] += $row['cnt'];
         }
 

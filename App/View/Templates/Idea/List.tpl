@@ -80,10 +80,10 @@
                 <div class="span10">
                 <div class="progress">
                     {if $row['votes']['yes'] > 0}
-                        <div class="bar bar-success" style="width: {$row['votes']['yes'] / $row['votes']['total'] * 100}%;">{$row['votes']['yes']}</div>
+                        <div class="bar bar-success" style="width: {$row['votes']['yes'] / $row['votes']['total'] * 100}%;" title="{$row['votes']['yeslist']}">{$row['votes']['yes']}</div>
                     {/if}
                     {if $row['votes']['no'] > 0}
-                        <div class="bar bar-danger" style="width: {$row['votes']['no'] / $row['votes']['total'] * 100}%;">{$row['votes']['no']}</div>
+                        <div class="bar bar-danger" style="width: {$row['votes']['no'] / $row['votes']['total'] * 100}%;" title="{$row['votes']['nolist']}">{$row['votes']['no']}</div>
                     {/if}
                     {if $row['votes']['total'] == 0}
                         <div class="bar bar-info" style="width: 100%;">Пока еще нет голосов</div>

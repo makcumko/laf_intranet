@@ -22,13 +22,13 @@
             {if !empty($result.items)}
                 {foreach from=$result.items item=row}
                     <tr onclick="document.location = '/Staff/View/{$row.id}'">
-                        <td><img src="/Images/Get/{$row.avatar_id}/80/80"/></td>
+                        <td><img src="/Images/View/{$row.avatar_id}/80/80"/></td>
                         <td>{$row.fullname}</td>
                         <td>{$row.department}</td>
                         <td>{$row.about}</td>
                         <td>
-                            {if !empty($row.contacts['email'])}
-                                {foreach from=$row.contacts['email'] item=item}
+                            {if !empty($row.contacts['Email'])}
+                                {foreach from=$row.contacts['Email'] item=item}
                                     <p>
                                         <a href="mailto: {$item.value}">{$item.value}</a>
                                         {if $item.comment} ({$item.comment}){/if}
@@ -37,8 +37,8 @@
                             {/if}
                         </td>
                         <td>
-                            {if !empty($row.contacts['phone'])}
-                                {foreach from=$row.contacts['phone'] item=item}
+                            {if !empty($row.contacts['Phone'])}
+                                {foreach from=$row.contacts['Phone'] item=item}
                                     <p>
                                         {$item.value}
                                         {if $item.comment} ({$item.comment}){/if}
@@ -47,8 +47,8 @@
                             {/if}
                         </td>
                         <td>
-                            {if !empty($row.contacts['skype'])}
-                                {foreach from=$row.contacts['skype'] item=item}
+                            {if !empty($row.contacts['Skype'])}
+                                {foreach from=$row.contacts['Skype'] item=item}
                                     <p>
                                         <a href="skype: {$item.value}">{$item.value}</a>
                                         {if $item.comment} ({$item.comment}){/if}

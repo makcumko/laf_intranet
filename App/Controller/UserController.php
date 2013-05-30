@@ -121,11 +121,7 @@ class UserController extends AbstractController
             $this->redirect("/");
         }
 
-        $this->block("main", "User/Profile");
-        $this->addBreadCrumb("Личный кабинет", "/User/Profile");
-        $this->bind("menu", "User");
-
-        return $this->user;
+        return $this->callController("StaffController", "Edit", $this->user['id']);
     }
 
     public function UpdateProfile() {

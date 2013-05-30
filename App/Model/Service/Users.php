@@ -39,7 +39,7 @@ class Users extends AbstractService {
         \App\Model\Registry::Set("user", null);
     }
 
-    public function Register($login, $name, $password) {
+    public function Register($login, $name, $password, $approve = false) {
         if (sizeof($this->userGateway->filter(['login' => $login])) > 0) {
             throw new \Exception("Пользователь с таким логином уже зарегистрирован");
         }
@@ -48,6 +48,7 @@ class Users extends AbstractService {
             "login" => $login,
             "fullname" => $name,
             "password" => md5($password.self::SALT),
+            "flag_approved" => (bool)$approve
         ];
         $this->userGateway->insert($data);
 

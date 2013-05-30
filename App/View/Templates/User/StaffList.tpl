@@ -6,6 +6,17 @@
     <div class="title">
         <h3>Персонал</h3>
     </div>
+
+    {if $_user.flag_admin}
+        <p><a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=login]').focus()" class="btn btn-primary">Добавить</a></p>
+        <form id="frmCreate" class="well hidden validate" action="/Staff/Add">
+            <legend>Добавить пользователя</legend>
+            <div><input type="text" name="login" class="input-xxlarge validate-required" placeholder="Логин нового пользователя"/></div>
+            <span class="help-block">Пароль созданного пользователя будет совпадать с его логином</span>
+            <div><input type="submit" class="btn btn-primary" value="Создать"/></div>
+        </form>
+    {/if}
+
     <div class="band">
         <table class="table table-hover">
             <tr>

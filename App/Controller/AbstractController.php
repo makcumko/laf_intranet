@@ -13,11 +13,21 @@ abstract class AbstractController
     {
         $this->request = \App\Model\Registry::Get("request");
         $this->user = \App\Model\Registry::Get("user");
+        $this->layout('Default');
 
         if (!$this->user['id'] && !($this->request->controller == "User")) {
             $this->redirect("/User/Login");
         } else {
-            $this->layout('Default');
+            $notifications = [];
+            if ($this->user['id']) {
+                if (!$this->user['department_id'] || !$this->user['shortname'] || !$this->user['fullname']) {
+                    $notifications[] = ['text' => "Нам нужны ваши данные, пожалуйста пройдите в <a href='/User/Profile'>личный кабинет</a> и заполните информацию о себе"];
+                }
+                if (md5($this->user['login'].\App\Model\Service\Users::SALT) == $this->user['password']) {
+                    $notifications[] = ['text' => "Вам нужно изменить свой пароль со стандартного, сделайте это в <a href='/User/Profile'>личном кабинете</a>"];
+                }
+            }
+            $this->bind("notifications", $notifications);
         }
     }
 

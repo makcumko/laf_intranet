@@ -24,6 +24,6 @@
 
 <div class="validate-errors popup">
     <h2 class="title"></h2>
-    <div class="popup-close"><i class="icon-remove"></i></div>
+    <div class="popup-close">[x]</div>
     <div class="error-text"></div>
 </div>

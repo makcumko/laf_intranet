@@ -96,4 +96,16 @@ class StaffController extends AbstractController
         return $user;
     }
 
+    public function Add() {
+        if ($this->user['flag_admin']) {
+            $this->userService->Register(
+                $this->request->params['login'],
+                $this->request->params['login'],
+                $this->request->params['login'],
+                true
+            );
+        }
+        $this->redirect("/Staff/");
+    }
+
 }

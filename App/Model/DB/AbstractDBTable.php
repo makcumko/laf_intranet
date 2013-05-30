@@ -9,12 +9,15 @@ abstract class AbstractDBTable
     /** @var AbstractDBAdapter */
     protected $db;
     protected $user;
+    /** @var \App\Model\Request */
+    protected $request;
 
     public function __construct($tableName)
     {
         $this->tableName = $tableName;
         $this->db = \App\Model\Registry::Get($this->dbcode);
         $this->user = \App\Model\Registry::Get("user");
+        $this->request = \App\Model\Registry::Get("request");
     }
 
     /**
@@ -99,6 +102,44 @@ abstract class AbstractDBTable
         if (!empty($orderby)) $sql .= " ORDER BY ".implode(", ", $orderby);
 
         return $this->db->query($sql, [], AbstractDBAdapter::FETCH_ASSOC);
+    }
+
+    public function filterPaged(Array $params, $order = null, $limit = 20, $offset = 0) {
+        $where = ["flag_deleted = 0"];
+        $orderby = [];
+
+        foreach($params as $cell => $value) {
+            $where[] = $this->db->escape($cell, true).' = '.$this->db->escape($value);
+        }
+
+        if ($order) {
+            if (!is_array($order)) $order = [$order => "ASC"];
+
+            foreach ($order as $field => $dir) $orderby[] = $this->db->escape($field, true)." ".(strtolower($dir) == "desc" ? "DESC" : "ASC");
+        }
+
+        $sql = "SELECT *
+                FROM ".$this->db->escape($this->tableName, true)."
+                WHERE ".implode(" AND ", $where);
+        if (!empty($orderby)) $sql .= " ORDER BY ".implode(", ", $orderby);
+
+        if ($limit) $sql .= " LIMIT ".intval($limit);
+        if ($offset) $sql .= " OFFSET ".intval($offset);
+
+        $items = $this->db->query($sql, [], AbstractDBAdapter::FETCH_ASSOC);
+
+        $sql = "SELECT COUNT(*)
+                FROM ".$this->db->escape($this->tableName, true)."
+                WHERE ".implode(" AND ", $where);
+        $total = $this->db->query($sql, [], AbstractDBAdapter::FETCH_VALUE);
+
+        return [
+            'items' => $items,
+            'count' => sizeof($items),
+            'total' => $total,
+            'pages' => ceil($total / $limit),
+            'currentPage' => ceil($offset / sizeof($items)) + 1
+        ];
     }
 
 

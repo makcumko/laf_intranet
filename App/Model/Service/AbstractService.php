@@ -4,6 +4,7 @@ namespace App\Model\Service;
 
 abstract class AbstractService
 {
+    /** @var \App\Model\Request */
     protected $request;
     protected $user;
 

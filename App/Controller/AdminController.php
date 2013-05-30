@@ -12,7 +12,7 @@ class AdminController extends AbstractController
     private $pageService;
 
     public function _prepare() {
-        if (!$this->user['admin']) {
+        if (!$this->user['flag_admin']) {
             throw new \Exception("Нет прав доступа");
         }
         $this->addBreadCrumb("Админко", "/Admin/");

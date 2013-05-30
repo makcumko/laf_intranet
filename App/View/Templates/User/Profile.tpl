@@ -1,5 +1,3 @@
-{include "User/Menu.tpl"}
- 
 <section class="auth-form">
 
     {if $error}<div class='error_message'>{$error}</div>{/if}

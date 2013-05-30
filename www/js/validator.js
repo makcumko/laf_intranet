@@ -28,12 +28,14 @@ $(document).ready(function() {
                     var valType = valParams.splice(0, 1)[0];
                 }
 
+                var title = control.attr('title') ? control.attr('title') : (control.attr('placeholder') ? control.attr('placeholder') : false);
+
                 switch (valType) {
                     case "required":
                         if (val == '' || !val) {
                             errors.push({
                                 control: control,
-                                text: "Необходимо ввести значение" + (control.attr('title') ? ' в поле ' + control.attr('title') : '')
+                                text: "Необходимо ввести значение" + (title ? ' в поле ' + title : '')
                             });
                         }
                         break;
@@ -41,7 +43,7 @@ $(document).ready(function() {
                         if (parseInt(val) == 0 || !parseInt(val)) {
                             errors.push({
                                 control: control,
-                                text: "Поле" + (control.attr('title') ? ' ' + control.attr('title') : '') + " может принимать только числовое значение"
+                                text: "Поле" + (title ? ' ' + title : '') + " может принимать только числовое значение"
                             });
                         }
                         break;
@@ -51,7 +53,7 @@ $(document).ready(function() {
                             errors.push({
                                 control: $(this),
                                 text: "Символов в поле" +
-                                    (control.attr('title') ? ' ' + control.attr('title') : '') +
+                                    (title ? ' ' + title : '') +
                                     " должно быть" +
                                     (valParams[0] == valParams[1] ?
                                         " ровно "+valParams[0] :

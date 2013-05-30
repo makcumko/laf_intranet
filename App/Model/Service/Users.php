@@ -4,19 +4,25 @@ namespace App\Model\Service;
 class Users extends AbstractService {
     /** @var \App\Model\Gateway\Users */
     public $userGateway;
+    /** @var \App\Model\Gateway\Contacts */
+    public $contactGateway;
+    /** @var \App\Model\Gateway\Departments */
+    public $departmentGateway;
 
 //    const SALT = "cn(*QNWcry-Q|`";
     const SALT = ""; // пока так для простоты
 
     function __construct() {
         $this->userGateway = \App\Model\Registry::Singleton("\App\Model\Gateway\Users");
+        $this->contactGateway = \App\Model\Registry::Singleton("\App\Model\Gateway\Contacts");
+        $this->departmentGateway = \App\Model\Registry::Singleton("\App\Model\Gateway\Departments");
         parent::__construct();
     }
 
     public function Login($login, $password) {
         $hash = md5($password.self::SALT);
 
-        $this->user = current($this->userGateway->filter(["login" => $login, "password" => $hash]));
+        $this->user = current($this->userGateway->filter(["login" => $login, "password" => $hash, "flag_approved" => 1]));
 
         if (!empty($this->user)) {
             $_SESSION['user_id'] = $this->user['id'];
@@ -34,7 +40,7 @@ class Users extends AbstractService {
 
     public function Register($login, $name, $password) {
         if (sizeof($this->userGateway->filter(['login' => $login])) > 0) {
-            throw new \Exception("Пользователь с таким телефоном уже зарегистрирован");
+            throw new \Exception("Пользователь с таким логином уже зарегистрирован");
         }
 
         $data = [
@@ -47,30 +53,6 @@ class Users extends AbstractService {
 //        $this->Login($login, $password);
     }
 
-
-    public function Update($params) {
-        if (!$params['id']) {
-            throw new \Exception("Неизвестный пользователь");
-        }
-
-        $data = [
-            "phonecode" => $params['phonecode'],
-            "phonenum" => $params['phonenum'],
-            "email" => $params['email'],
-            "name" => $params['username'],
-            "flag_notify_email" => $params['flag_notify_email'] ? 1 : 0,
-            "flag_notify_sms" => $params['flag_notify_sms'] ? 1 : 0
-        ];
-
-        if ($params['password']) {
-            if ($params['password'] != $params['password2']) {
-                throw new \Exception("Пароли не совпадают");
-            }
-            $data['password'] = md5($params['password'].self::SALT);
-        }
-
-        $this->userGateway->update($params['id'], $data);
-    }
 
     public function GetRestoreLink($email) {
         $user = current($this->userGateway->filter(['email' => $email]));
@@ -96,8 +78,26 @@ class Users extends AbstractService {
         if (isset($_SESSION['user_id'])) {
             $id = $_SESSION['user_id'];
             $this->user = $this->userGateway->read($id);
+            $this->userGateway->update($id, ['last_action' => date("Y-m-d H:i:s")]);
             \App\Model\Registry::Set("user", $this->user);
         }
+    }
+
+    public function GetStaff($page = 1) {
+        $staff = $this->userGateway->filterPaged([], ["id" => "ASC"], $page);
+        foreach ($staff['items'] as &$user) {
+            $user['contacts'] = $this->contactGateway->getByUser($user['id']);
+            $user['department'] = $this->departmentGateway->read($user['department_id'])['name'];
+        }
+        return $staff;
+    }
+
+    public function GetInfo($id) {
+        $user = $this->userGateway->read($id);
+        $user['contacts'] = $this->contactGateway->getByUser($user['id']);
+        $user['department'] = $this->departmentGateway->read($user['department_id'])['name'];
+
+        return $user;
     }
 
 

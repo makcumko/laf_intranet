@@ -5,11 +5,11 @@ use App\Model\Registry;
 
 class PageController extends AbstractController
 {
-    /** @var \App\Model\Service\Pages */
-    private $pageService;
+    /** @var \App\Model\Service\News */
+    private $newsService;
 
     public function _prepare() {
-        $this->pageService = \App\Model\Registry::Singleton("\App\Model\Service\Pages");
+        $this->newsService = \App\Model\Registry::Singleton("\App\Model\Service\News");
     }
 
     public function View($id) {
@@ -28,20 +28,15 @@ class PageController extends AbstractController
     }
 
 
-    public function Main()
+    public function Main($page = 1)
     {
         $this->block("main", "Pages/Main");
-        $this->bind("leftmenu", "Search");
-        $this->bind("headersize", "big");
+        $this->bind("mainmenu", "Main");
 
-        $this->bind("title", "LAF - запчасти для людей");
+        $this->bind("title", "LAF Intranet - новости");
 
+        $this->bind("news", $this->newsService->getPaged($page));
 
-        $mans = Registry::Singleton("\App\Model\Service\Tecdoc")->getManufacturers();
-        foreach ($mans as &$man) {
-            $man['mfa_brand'] = mb_convert_case($man['mfa_brand'], MB_CASE_TITLE);
-        }
-        return $mans;
 //        return "test";
     }
 

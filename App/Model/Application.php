@@ -71,7 +71,7 @@ class Application
             call_user_func([$controller, "Error"], $e);
 
             $response = new \App\Model\Response($controller->getVars());
-            $response->add("errors", $e->getMessage());
+            $response->add("errors", [['code' => $e->getCode(), 'text' => $e->getMessage()]]);
             error_log("ERROR:".PHP_EOL.
                 "Request IP: '{$_SERVER['REMOTE_ADDR']}'".PHP_EOL.
                 "Request params: '".json_encode($request)."'".PHP_EOL.
@@ -102,7 +102,7 @@ class Application
             try {
                 if (method_exists("\\App\\Controller\\{$request->controller}Controller", $request->method)) {
                     // no json description for called method, but method exists
-                    foreach ($request->extras as $val) $params[] = $val;
+                    foreach ($request->extras as $key => $val) if ($val || $key < sizeof($request->extras) - 1) $params[] = $val;
                     foreach ($request->params as $val) $params[] = $val;
                 } else {
                     throw new \Exception();

@@ -12,7 +12,7 @@ class DefaultController extends AbstractController
 
     public function Main()
     {
-        return $this->callController("PageController", "Main");
+        return $this->callController("NewsController", "Main");
     }
 
     public function Error(\Exception $e) {

@@ -11,6 +11,7 @@ class Users extends AbstractService {
 
 //    const SALT = "cn(*QNWcry-Q|`";
     const SALT = ""; // пока так для простоты
+    const STAFF_PAGESIZE = 20;
 
     function __construct() {
         $this->userGateway = \App\Model\Registry::Singleton("\App\Model\Gateway\Users");
@@ -84,7 +85,7 @@ class Users extends AbstractService {
     }
 
     public function GetStaff($page = 1) {
-        $staff = $this->userGateway->filterPaged([], ["id" => "ASC"], $page);
+        $staff = $this->userGateway->filterPaged([], ["id" => "ASC"], self::STAFF_PAGESIZE, self::STAFF_PAGESIZE * ($page - 1));
         foreach ($staff['items'] as &$user) {
             $user['contacts'] = $this->contactGateway->getByUser($user['id']);
             $user['department'] = $this->departmentGateway->read($user['department_id'])['name'];

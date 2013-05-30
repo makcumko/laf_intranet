@@ -12,6 +12,7 @@
                 data: { "id": id },
                 success: function(response) {
                     commentsDiv.find(".rows").html(response);
+                    commentsDiv.find("input[name=text]").focus();
                 }
             });
         } else {
@@ -45,7 +46,7 @@
         <h3>Последние новости</h3>
     </div>
     {if $_user.flag_admin}
-        <p><a href="javascript: $('#frmCreate').removeClass('hidden');" class="btn btn-primary">Добавить</a></p>
+        <p><a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus()" class="btn btn-primary">Добавить</a></p>
         <form id="frmCreate" class="well hidden validate" action="/News/Add">
             <legend>Добавить новость</legend>
             <div><input type="text" name="title" class="input-xxlarge validate-required" placeholder="Заголовок новости"/></div>
@@ -54,8 +55,8 @@
         </form>
     {/if}
     <div class="band">
-        {if !empty($news.items)}
-            {foreach from=$news.items item=row}
+        {if !empty($result.items)}
+            {foreach from=$result.items item=row}
                 <div class="news well" id="news_{$row.id}" data-id="{$row.id}">
                     <p>
                         <b>{$row.title}</b>
@@ -67,16 +68,16 @@
                     <a href="javascript: void(0)" onclick="toggleComments(this)">Комментариев: {$row.comments|sizeof}</a>
 
                     <div class="comments hidden well">
-                        <div class="rows"></div>
-
                         <form method="post" class="form-inline" onsubmit="addComment(this); return false;">
                             <input type="text" name="text" placeholder="Ваш комментарий.." class="input-xxlarge"/>
                             <input type="submit" value="Отправить" class="btn btn-primary"/>
                         </form>
+
+                        <div class="rows"></div>
                     </div>
                 </div>
             {/foreach}
-            {include "Blocks/Pager.tpl" url="/News/Main/" data=$news}
+            {include "Blocks/Pager.tpl" url="/News/Main/" data=$result}
         {else}
             Свежих новостей пока нет
         {/if}

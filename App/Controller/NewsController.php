@@ -24,7 +24,7 @@ class NewsController extends AbstractController
 
         $this->bind("title", "LAF Intranet - новости");
 
-        $this->bind("news", $this->newsService->getPaged($page));
+        return $this->newsService->getPaged($page);
     }
 
     public function Comments($id, $action = 'View') {

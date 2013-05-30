@@ -8,9 +8,13 @@
 }
 
 .news b {
+    font-size: 16px;
+    font-weight: bold;
     color: rgb(175, 152, 29);
 }
 
+
+/* validation */
 .popup-close {
     position: absolute;
     top: 10px;
@@ -22,7 +26,6 @@
 input.notvalid, textarea.notvalid {
     border: 1px solid red !important;
 }
-
 
 div.validate-errors {
     position: absolute;

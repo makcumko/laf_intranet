@@ -6,7 +6,7 @@
             var html = '<p>'+
                     ' <input type="text" name="contact_'+type+'_value[]" value="" class="validate-required" placeholder="'+type+'"/>'+
                     ' <input type="text" name="contact_'+type+'_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>'+
-                    ' <a href="javascript: void(0)" onclick="delContact(this)">[x]</a>'+
+                    ' <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>'+
                     '</p>';
             $("#dvContacts .contact-"+type+" .controls").append(html);
         } else {
@@ -17,7 +17,7 @@
                     '<p>'+
                     ' <input type="text" name="contact_'+type+'_value[]" value="" class="" placeholder="'+type+'"/>'+
                     ' <input type="text" name="contact_'+type+'_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>'+
-                    ' <a href="javascript: void(0)" onclick="delContact(this)">[x]</a>'+
+                    ' <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>'+
                     '</p>'+
                     '</div>'+
                     '</div>'
@@ -35,6 +35,16 @@
         }
     }
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e)  {
+                $('#imgAvatar').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     $().ready(function() {
     });
 </script>
@@ -43,9 +53,12 @@
 <form enctype="multipart/form-data" action="/Staff/Edit/{$result.id}" method="post" class="form-horizontal validate" >
 <div>
     <div class="span2">
-        <img src="/Images/View/{$result.avatar_id}/200/200"/>
-        <br/>
-        <input type="file">
+        <label for="avatar">
+            <img id="imgAvatar" src="/Images/View/{$result.avatar_id}/200/200" style="max-width: 250px; max-height: 500px; overflow: hidden;"/>
+            <br/>
+            Нажмите чтобы изменить
+        </label>
+        <input type="file" id="avatar" name="avatar" class="hidden" onchange="readURL(this);"/>
     </div>
     <div class="span10">
         <div class="control-group">
@@ -92,7 +105,7 @@
         <div class="control-group">
             <label class="control-label" for="about">О себе</label>
             <div class="controls">
-                <textarea id="about" name="about" class="input-block-level" placeholder="Краткое описание">{$result.about}</textarea>
+                <textarea id="about" name="about" class="input-block-level" placeholder="Краткая информация, должность">{$result.about}</textarea>
             </div>
         </div>
 
@@ -109,7 +122,7 @@
                             <p>
                                 <input type="text" name="contact_{$type}_value[]" value="{$item.value}" class="validate-required" placeholder="{$type}"/>
                                 <input type="text" name="contact_{$type}_comment[]" value="{$item.comment}" class="input-xxlarge" placeholder="Комментарий"/>
-                                <a href="javascript: void(0)" onclick="delContact(this)">[x]</a>
+                                <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
                             </p>
                         {/foreach}
                     </div>
@@ -124,7 +137,7 @@
                         <p>
                             <input type="text" name="contact_Email_value[]" value="" class="validate-required" placeholder="vasya@pupkin.ru" title="Email"/>
                             <input type="text" name="contact_Email_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>
-                            <a href="javascript: void(0)" onclick="delContact(this)">[x]</a>
+                            <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
                         </p>
                     </div>
                 </div>
@@ -136,7 +149,7 @@
                         <p>
                             <input type="text" name="contact_Phone_value[]" value="" class="validate-required" placeholder="+7-123-4567890" title="Телефон"/>
                             <input type="text" name="contact_Phone_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>
-                            <a href="javascript: void(0)" onclick="delContact(this)">[x]</a>
+                            <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
                         </p>
                     </div>
                 </div>
@@ -148,7 +161,7 @@
                         <p>
                             <input type="text" name="contact_Skype_value[]" value="" class="validate-required" placeholder="vasya.pupkin" title="Skype"/>
                             <input type="text" name="contact_Skype_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>
-                            <a href="javascript: void(0)" onclick="delContact(this)">[x]</a>
+                            <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
                         </p>
                     </div>
                 </div>

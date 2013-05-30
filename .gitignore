@@ -1,5 +1,5 @@
 *.log
 App/View/Compiled
 App/View/Cache
-Data/Database
+Data/Database/*.json
 .idea/

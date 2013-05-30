@@ -9,6 +9,7 @@ class StaffController extends AbstractController
     public function _prepare() {
         $this->userService = \App\Model\Registry::Singleton("\App\Model\Service\Users");
         $this->addBreadCrumb("Персонал", "/Staff/");
+        $this->bind("mainmenu", "Staff");
     }
 
     public function Main($page = 1)
@@ -47,6 +48,7 @@ class StaffController extends AbstractController
 
         if (isset($data['fullname'])) {
 
+            // contacts
             $contacts = [];
             foreach ($data as $key=>$val) {
                 preg_match("/^contact_(\w+)_value$/is", $key, $matches);
@@ -57,6 +59,7 @@ class StaffController extends AbstractController
             }
             $this->userService->contactGateway->updateForUser($id, $contacts);
 
+            // user record
             $params = [
                 'login' => $data['login'],
                 'fullname' => $data['fullname'],
@@ -71,7 +74,15 @@ class StaffController extends AbstractController
                 if ($data['password'] != $data['password2']) {
                     throw new \Exception("Пароли не совпадают");
                 }
-                $data['password'] = md5($data['password'].\App\Model\Service\Users::SALT);
+                $params['password'] = md5($data['password'].\App\Model\Service\Users::SALT);
+            }
+
+            // avatar image
+            if (!empty($_FILES['avatar'])) {
+                /** @var \App\Model\Service\Images */
+                $imagesService = \App\Model\Registry::Singleton("\App\Model\Service\Images");
+                $avId = $imagesService->UploadImage($_FILES['avatar']);
+                if ($avId) $params['avatar_id'] = $avId;
             }
 
             $this->userService->userGateway->update($id, $params);

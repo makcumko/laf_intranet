@@ -25,7 +25,7 @@ abstract class AbstractDBTable
      */
     public function read($id) {
         $sql = "SELECT * FROM ".$this->db->escape($this->tableName, true)." WHERE id=:0:";
-        return $this->db->query($sql, $id, AbstractDBAdapter::FETCH_LINE);
+        return $this->db->query($sql, intval($id), AbstractDBAdapter::FETCH_LINE);
     }
 
     /**
@@ -137,8 +137,8 @@ abstract class AbstractDBTable
             'items' => $items,
             'count' => sizeof($items),
             'total' => $total,
-            'pages' => ceil($total / $limit),
-            'currentPage' => ceil($offset / sizeof($items)) + 1
+            'pages' => $limit ? ceil($total / $limit) : 1,
+            'currentPage' => sizeof($items) ? ceil($offset / sizeof($items)) + 1 : 1
         ];
     }
 

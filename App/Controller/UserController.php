@@ -121,7 +121,15 @@ class UserController extends AbstractController
             $this->redirect("/");
         }
 
-        return $this->callController("StaffController", "Edit", $this->user['id']);
+        $this->block("main", "User/Edit");
+        $user = $this->userService->GetInfo($this->user['id']);
+        $this->addBreadCrumb($user['fullname'], "/Staff/View/{$user['id']}");
+
+        $this->bind("departments", $this->userService->departmentGateway->filter([], ["name" => "ASC"]));
+
+        return $user;
+
+//        return $this->callController("StaffController", "Edit", $this->user['id']);
     }
 
     public function UpdateProfile() {

@@ -21,9 +21,6 @@ class ImagesController extends AbstractController
     public function View($id, $maxWidth = 0, $maxHeight = 0) {
         $this->layout("Empty");
 
-        var_dump($id);
-        var_dump($maxWidth);
-        var_dump($maxHeight);
         $this->imagesService->getImageResized($id, $maxWidth, $maxHeight);
     }
 }

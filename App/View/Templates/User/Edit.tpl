@@ -154,6 +154,18 @@
                     </div>
                 </div>
             {/if}
+            {if empty($result.contacts.Internal)}
+                <div class="control-group contact-Internal">
+                    <label class="control-label">Internal</label>
+                    <div class="controls">
+                        <p>
+                            <input type="text" name="contact_Internal_value[]" value="" class="validate-required" placeholder="1234" title="Внутренний номер"/>
+                            <input type="text" name="contact_Internal_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>
+                            <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
+                        </p>
+                    </div>
+                </div>
+            {/if}
             {if empty($result.contacts.Skype)}
                 <div class="control-group contact-Skype">
                     <label class="control-label">Skype</label>
@@ -173,6 +185,7 @@
                 <select id="ddlContactType">
                     <option value="Email">Email</option>
                     <option value="Phone">Телефон</option>
+                    <option value="Internal">Внутренний номер</option>
                     <option value="Skype">Skype</option>
                     <option value="ICQ">ICQ</option>
                     <option value="Misc">Дополнительно</option>

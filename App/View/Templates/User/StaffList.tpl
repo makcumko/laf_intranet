@@ -26,6 +26,7 @@
                 <th>Инфо</th>
                 <th>E-mail</th>
                 <th>Телефон</th>
+                <th>Внутренний номер</th>
                 <th>Skype</th>
                 <th>Статус</th>
             </tr>
@@ -50,6 +51,16 @@
                         <td>
                             {if !empty($row.contacts['Phone'])}
                                 {foreach from=$row.contacts['Phone'] item=item}
+                                    <p>
+                                        {$item.value}
+                                        {if $item.comment} ({$item.comment}){/if}
+                                    </p>
+                                {/foreach}
+                            {/if}
+                        </td>
+                        <td>
+                            {if !empty($row.contacts['Internal'])}
+                                {foreach from=$row.contacts['Internal'] item=item}
                                     <p>
                                         {$item.value}
                                         {if $item.comment} ({$item.comment}){/if}

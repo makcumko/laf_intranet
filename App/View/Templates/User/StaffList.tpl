@@ -35,14 +35,14 @@
                 {foreach from=$result.items item=row}
                     <tr onclick="document.location = '/Staff/View/{$row.id}'">
                         <td><img src="/Images/View/{$row.avatar_id}/80/80"/></td>
-                        <td>{$row.fullname}</td>
-                        <td>{$row.department}</td>
-                        <td>{$row.about}</td>
+                        <td>{$row.fullname|display}</td>
+                        <td>{$row.department|display}</td>
+                        <td>{$row.about|display}</td>
                         <td>
                             {if !empty($row.contacts['Email'])}
                                 {foreach from=$row.contacts['Email'] item=item}
                                     <p {if $item.comment}title="{$item.comment}"{/if}>
-                                        <a href="mailto: {$item.value}">{$item.value}</a>
+                                        <a href="mailto: {$item.value|display}">{$item.value|display}</a>
                                     </p>
                                 {/foreach}
                             {/if}
@@ -50,8 +50,8 @@
                         <td>
                             {if !empty($row.contacts['Phone'])}
                                 {foreach from=$row.contacts['Phone'] item=item}
-                                    <p {if $item.comment}title="{$item.comment}"{/if}>
-                                        <nobr>{$item.value}</nobr>
+                                    <p {if $item.comment}title="{$item.comment|display}"{/if}>
+                                        <nobr>{$item.value|display}</nobr>
                                     </p>
                                 {/foreach}
                             {/if}
@@ -59,8 +59,8 @@
                         <td>
                             {if !empty($row.contacts['Internal'])}
                                 {foreach from=$row.contacts['Internal'] item=item}
-                                    <p {if $item.comment}title="{$item.comment}"{/if}>
-                                        {$item.value}
+                                    <p {if $item.comment}title="{$item.comment|display}"{/if}>
+                                        {$item.value|display}
                                     </p>
                                 {/foreach}
                             {/if}
@@ -68,8 +68,8 @@
                         <td>
                             {if !empty($row.contacts['Skype'])}
                                 {foreach from=$row.contacts['Skype'] item=item}
-                                    <p {if $item.comment}title="{$item.comment}"{/if}>
-                                        <a href="skype: {$item.value}">{$item.value}</a>
+                                    <p {if $item.comment}title="{$item.comment|display}"{/if}>
+                                        <a href="skype: {$item.value|display}">{$item.value|display}</a>
                                     </p>
                                 {/foreach}
                             {/if}

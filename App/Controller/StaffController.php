@@ -113,6 +113,13 @@ class StaffController extends AbstractController
                 true
             );
         }
+
+        Registry::Singleton("\App\Model\Service\Mailer")->SendTemplate(
+            $this->request->params['login'],
+            "Вам был предоставлен доступ к сайту intranet.laf24.ru", "Mails/User/AddedNotify",
+            ["login" => $this->request->params['login']]
+        );
+
         $this->redirect("/Staff/");
     }
 

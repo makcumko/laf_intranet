@@ -15,7 +15,7 @@ abstract class AbstractController
         $this->user = \App\Model\Registry::Get("user");
         $this->layout('Default');
 
-        if (!$this->user['id'] && !($this->request->controller == "User")) {
+        if (!$this->user['id'] && !($this->request->controller == "User") && !($this->request->controller == "Staff" && $this->request->method == "Main")) {
             $this->redirect("/User/Login");
         } else {
             $notifications = [];

@@ -41,9 +41,8 @@
                         <td>
                             {if !empty($row.contacts['Email'])}
                                 {foreach from=$row.contacts['Email'] item=item}
-                                    <p>
+                                    <p {if $item.comment}title="{$item.comment}"{/if}>
                                         <a href="mailto: {$item.value}">{$item.value}</a>
-                                        {if $item.comment} ({$item.comment}){/if}
                                     </p>
                                 {/foreach}
                             {/if}
@@ -51,9 +50,8 @@
                         <td>
                             {if !empty($row.contacts['Phone'])}
                                 {foreach from=$row.contacts['Phone'] item=item}
-                                    <p>
-                                        {$item.value}
-                                        {if $item.comment} ({$item.comment}){/if}
+                                    <p {if $item.comment}title="{$item.comment}"{/if}>
+                                        <nobr>{$item.value}</nobr>
                                     </p>
                                 {/foreach}
                             {/if}
@@ -61,9 +59,8 @@
                         <td>
                             {if !empty($row.contacts['Internal'])}
                                 {foreach from=$row.contacts['Internal'] item=item}
-                                    <p>
+                                    <p {if $item.comment}title="{$item.comment}"{/if}>
                                         {$item.value}
-                                        {if $item.comment} ({$item.comment}){/if}
                                     </p>
                                 {/foreach}
                             {/if}
@@ -71,9 +68,8 @@
                         <td>
                             {if !empty($row.contacts['Skype'])}
                                 {foreach from=$row.contacts['Skype'] item=item}
-                                    <p>
+                                    <p {if $item.comment}title="{$item.comment}"{/if}>
                                         <a href="skype: {$item.value}">{$item.value}</a>
-                                        {if $item.comment} ({$item.comment}){/if}
                                     </p>
                                 {/foreach}
                             {/if}

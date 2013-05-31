@@ -22,11 +22,11 @@
             <tr>
                 <th></th>
                 <th>Имя</th>
+                <th>Внутренний номер</th>
                 <th>Отдел</th>
                 <th>Инфо</th>
                 <th>E-mail</th>
                 <th>Телефон</th>
-                <th>Внутренний номер</th>
                 <th>Skype</th>
                 <th>Статус</th>
             </tr>
@@ -36,6 +36,15 @@
                     <tr onclick="document.location = '/Staff/View/{$row.id}'">
                         <td><img src="/Images/View/{$row.avatar_id}/80/80"/></td>
                         <td>{$row.fullname|display}</td>
+                        <td>
+                            {if !empty($row.contacts['Internal'])}
+                                {foreach from=$row.contacts['Internal'] item=item}
+                                    <p {if $item.comment}title="{$item.comment|display}"{/if}>
+                                        {$item.value|display}
+                                    </p>
+                                {/foreach}
+                            {/if}
+                        </td>
                         <td>{$row.department|display}</td>
                         <td>{$row.about|display}</td>
                         <td>
@@ -52,15 +61,6 @@
                                 {foreach from=$row.contacts['Phone'] item=item}
                                     <p {if $item.comment}title="{$item.comment|display}"{/if}>
                                         <nobr>{$item.value|display}</nobr>
-                                    </p>
-                                {/foreach}
-                            {/if}
-                        </td>
-                        <td>
-                            {if !empty($row.contacts['Internal'])}
-                                {foreach from=$row.contacts['Internal'] item=item}
-                                    <p {if $item.comment}title="{$item.comment|display}"{/if}>
-                                        {$item.value|display}
                                     </p>
                                 {/foreach}
                             {/if}

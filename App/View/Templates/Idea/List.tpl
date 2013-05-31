@@ -61,14 +61,14 @@
             <div class="news well" id="idea_{$row.id}" data-id="{$row.id}">
                 <p>
                     {if $row.title}
-                        <b>{$row.title}</b>
-                        <span> от <a href="/Staff/View/{$row.author_id}"><img src="/Images/View/{$row.author_avatar_id}/20/20"/> {$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}</span>
+                        <b>{$row.title|display}</b>
+                        <span> от <a href="/Staff/View/{$row.author_id}"><img src="/Images/View/{$row.author_avatar_id}/20/20"/> {$row.author|display}</a> {$row.ctime|date_nice_format:"d M Y H:i"}</span>
                     {else}
-                        Предложение от <a href="/Staff/View/{$row.author_id}">{$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}
+                        Предложение от <a href="/Staff/View/{$row.author_id}">{$row.author|display}</a> {$row.ctime|date_nice_format:"d M Y H:i"}
                     {/if}
                 </p>
 
-                <blockquote>{$row.text}</blockquote>
+                <blockquote>{$row.text|display}</blockquote>
 
 
                 <div class="span1">

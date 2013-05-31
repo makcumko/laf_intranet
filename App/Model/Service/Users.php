@@ -57,10 +57,10 @@ class Users extends AbstractService {
 
 
     public function GetRestoreLink($email) {
-        $user = current($this->userGateway->filter(['email' => $email]));
+        $user = current($this->userGateway->filter(['login' => $email]));
         if (empty($user)) throw new \Exception("Нет зарегистрированного пользователя с таким e-mail");
 
-        $hash = md5($user['email'].$user['password'].self::SALT);
+        $hash = md5($user['login'].$user['password'].self::SALT);
 //        return $user['id']."/".$hash;
         return $hash;
     }

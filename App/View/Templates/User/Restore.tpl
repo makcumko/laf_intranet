@@ -4,9 +4,9 @@
     <div class="success">{$result}</div>
 {/if}
 <div>
-    <h1>Восстановление пароля, введите ваш е-мейл указанный при регистрации</h1>
-    <form id="login-form" action="/User/Restore" method="POST" class="validate">
+    <h4>Восстановление пароля, введите ваш е-мейл указанный при регистрации</h4>
+    <form id="login-form" action="/User/Restore" method="POST" class="form-inline validate">
         <input type="text" name="email" placeholder="Ваш е-мейл регистрации" class="validate-required"/>
-        <input type="submit" value="Восстановить"/>
+        <input type="submit" class="btn btn-primary" value="Восстановить"/>
     </form>
 </div>

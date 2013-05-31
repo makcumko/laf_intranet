@@ -24,6 +24,7 @@ class News extends AbstractService {
         foreach ($news['items'] as &$row) {
             $author = $this->usersGateway->read($row['author_id']);
             $row['author'] = $author['shortname'] ?: $author['fullname'];
+            $row['author_avatar_id'] = $author['avatar_id'] ?: $author['avatar_id'];
             $row['comments'] = $this->getComments($row['id']);
         }
 
@@ -44,6 +45,7 @@ class News extends AbstractService {
         foreach ($comments as &$row) {
             $author = $this->usersGateway->read($row['author_id']);
             $row['author'] = $author['shortname'] ?: $author['fullname'];
+            $row['author_avatar_id'] = $author['avatar_id'] ?: $author['avatar_id'];
         }
         return $comments;
     }

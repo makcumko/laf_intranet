@@ -62,7 +62,7 @@
                 <p>
                     {if $row.title}
                         <b>{$row.title}</b>
-                        <span> от <a href="/Staff/View/{$row.author_id}">{$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}</span>
+                        <span> от <a href="/Staff/View/{$row.author_id}"><img src="/Images/View/{$row.author_avatar_id}/20/20"/> {$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}</span>
                     {else}
                         Предложение от <a href="/Staff/View/{$row.author_id}">{$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}
                     {/if}
@@ -92,9 +92,7 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="">
-                    <a href="javascript: void(0)" onclick="toggleComments(this)">Комментариев: {$row.comments|sizeof}</a>
-                </div>
+                <a href="javascript: void(0)" onclick="toggleComments(this)">Комментариев: {$row.comments|sizeof}</a>
 
 
 

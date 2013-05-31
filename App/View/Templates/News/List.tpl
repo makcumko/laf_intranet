@@ -60,7 +60,7 @@
                 <div class="news well" id="news_{$row.id}" data-id="{$row.id}">
                     <p>
                         <b>{$row.title}</b>
-                        <span> от <a href="/Staff/View/{$row.author_id}">{$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}</span>
+                        <span> от <a href="/Staff/View/{$row.author_id}"><img src="/Images/View/{$row.author_avatar_id}/20/20"/> {$row.author}</a> {$row.ctime|date_nice_format:"d M Y H:i"}</span>
                     </p>
 
                     <blockquote>{$row.text}</blockquote>

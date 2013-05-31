@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Registry;
+
 class StaffController extends AbstractController
 {
     /** @var \App\Model\Service\Users */
@@ -22,6 +24,12 @@ class StaffController extends AbstractController
     public function Approve($id) {
         if ($this->user['flag_admin']) {
             $this->userService->userGateway->update($id, ['flag_approved' => 1]);
+            $user = $this->userService->userGateway->read($id);
+
+            Registry::Singleton("\App\Model\Service\Mailer")->SendTemplate(
+                $user['login'],
+                "Подтверждение доступа к сайту intranet.laf24.ru", "Mails/User/Approved"
+            );
         }
 
         $this->redirect("/Staff/");

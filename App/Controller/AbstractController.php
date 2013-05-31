@@ -20,7 +20,12 @@ abstract class AbstractController
         } else {
             $notifications = [];
             if ($this->user['id']) {
-                if (!$this->user['department_id'] || !$this->user['shortname'] || !$this->user['fullname']) {
+                if (
+                    !$this->user['department_id'] ||
+                    !$this->user['shortname'] ||
+                    !$this->user['fullname'] ||
+                    ($this->user['login'] == $this->user['fullname'])
+                ) {
                     $notifications[] = ['text' => "Нам нужны ваши данные, пожалуйста пройдите в <a href='/User/Profile'>личный кабинет</a> и заполните информацию о себе"];
                 }
                 if (md5($this->user['login'].\App\Model\Service\Users::SALT) == $this->user['password']) {

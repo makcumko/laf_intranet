@@ -56,7 +56,8 @@ div.validate-errors .title {
 /* gallery */
 .gallery-item {
     width: 210px;
-    height: 268px;
+    min-height: 340px;
+    max-height: 460px;
     text-align: center;
     margin: 4px;
     float: left;
@@ -65,7 +66,7 @@ div.validate-errors .title {
 
 .gallery-item img {
     width: 200px;
-    height: 200px;
+    max-height: 400px;
 }
 
 .gallery-item .author, .gallery-item .date, .gallery-item .description {

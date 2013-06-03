@@ -51,4 +51,6 @@ abstract class AbstractDBAdapter
 
         return $sql;
     }
+
+    abstract public function parseFilter(Array $filter);
 }

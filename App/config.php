@@ -14,9 +14,9 @@ setlocale(LC_ALL, "ru_RU.UTF8");
 
 ini_set('display_errors', true);
 ini_set('error_log', LOG_DIR.date("Y.m.d").'.php_error.log');
-ini_set('error_reporting', E_ALL & !E_NOTICE);
+//ini_set('error_reporting', E_ALL & !E_NOTICE);
 //ini_set('error_reporting', FLAG_DEBUG ? E_ALL : E_ALL & !E_NOTICE);
-//ini_set('error_reporting', E_ALL);
+ini_set('error_reporting', E_ALL);
 ini_set('log_errors', true);
 ini_set('default_charset', 'utf-8');
 

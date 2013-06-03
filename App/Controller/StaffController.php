@@ -89,7 +89,7 @@ class StaffController extends AbstractController
             if (!empty($_FILES['avatar'])) {
                 /** @var \App\Model\Service\Images */
                 $imagesService = \App\Model\Registry::Singleton("\App\Model\Service\Images");
-                $avId = $imagesService->UploadImage($_FILES['avatar']);
+                $avId = $imagesService->UploadImage($_FILES['avatar'], '#Avatar');
                 if ($avId) $params['avatar_id'] = $avId;
             }
 

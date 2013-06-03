@@ -83,8 +83,9 @@ abstract class AbstractDBTable
 
 
     public function filter(Array $params, $order = null) {
-        $where = ["flag_deleted = 0"];
         $orderby = [];
+
+        $where = $this->db->parseFilter($params);
 
         foreach($params as $cell => $value) {
             $where[] = $this->db->escape($cell, true).' = '.$this->db->escape($value);
@@ -105,12 +106,9 @@ abstract class AbstractDBTable
     }
 
     public function filterPaged(Array $params, $order = null, $limit = 20, $offset = 0) {
-        $where = ["flag_deleted = 0"];
         $orderby = [];
 
-        foreach($params as $cell => $value) {
-            $where[] = $this->db->escape($cell, true).' = '.$this->db->escape($value);
-        }
+        $where = $this->db->parseFilter($params);
 
         if ($order) {
             if (!is_array($order)) $order = [$order => "ASC"];

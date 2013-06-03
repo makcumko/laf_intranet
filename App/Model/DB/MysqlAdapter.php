@@ -109,4 +109,38 @@ class MysqlAdapter extends AbstractDBAdapter
         return $var;
     }
 
+    public function parseFilter(Array $filter) {
+        $where = ["flag_deleted = 0"];
+
+        foreach($filter as $param => $value) {
+            $tmp = explode("|", $param);
+            $cell = $tmp[0];
+            $method = isset($tmp[1]) ? $tmp[1] : "=";
+            switch (strtolower($method)) {
+                case "like":
+                    $method = "LIKE";
+                    break;
+                case ">":
+                case "gt":
+                    $method = ">";
+                    break;
+                case "<":
+                case "lt":
+                    $method = "<";
+                    break;
+                case "!=":
+                case "<>":
+                case "ne":
+                    $method = "<>";
+                    break;
+                default:
+                    $method = "=";
+            }
+
+            $where[] = $this->escape($cell, true).' '.$method.' '.$this->escape($value);
+        }
+
+        return $where;
+    }
+
 }

@@ -51,3 +51,23 @@ div.validate-errors .title {
     color: #bb5a5a;
     font-size: 16px;
 }
+
+
+/* gallery */
+.gallery-item {
+    width: 210px;
+    height: 268px;
+    text-align: center;
+    margin: 4px;
+    float: left;
+    padding: 3px;
+}
+
+.gallery-item img {
+    width: 200px;
+    height: 200px;
+}
+
+.gallery-item .author, .gallery-item .date, .gallery-item .description {
+    overflow-x: hidden;
+}

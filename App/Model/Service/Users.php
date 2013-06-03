@@ -69,7 +69,7 @@ class Users extends AbstractService {
         $sql = "SELECT *
                 FROM users
                 WHERE flag_deleted = 0
-                    AND MD5(CONCAT(email, password, :salt:)) = :hash:";
+                    AND MD5(CONCAT(login, password, :salt:)) = :hash:";
         $user = $this->db->query($sql, ["salt" => self::SALT, "hash" => $hash], \App\Model\DB\AbstractDBAdapter::FETCH_LINE);
         if (empty($user)) throw new \Exception("Невалидный код восстановления");
         $_SESSION['user_id'] = $user['id'];

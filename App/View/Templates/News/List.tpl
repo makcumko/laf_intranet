@@ -43,10 +43,12 @@
 </script>
 <div>
     <div class="title">
-        <h3>Последние новости</h3>
-        {if $_user.flag_admin}
-            <a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus()" class="btn btn-primary pull-right">Добавить</a>
-        {/if}
+        <h3>
+            Последние новости
+            {if $_user.flag_admin}
+                <a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus()" class="btn btn-primary pull-right">Добавить</a>
+            {/if}
+        </h3>
     </div>
     {if $_user.flag_admin}
         <form id="frmCreate" class="well hidden validate" action="/News/Add">

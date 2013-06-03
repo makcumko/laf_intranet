@@ -43,8 +43,9 @@
 </script>
 <div>
     <div class="title">
-        <h3>Последние предложения</h3>
-        <a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus()" class="btn btn-primary pull-right">Добавить</a>
+        <h3>Последние предложения
+            <a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus()" class="btn btn-primary pull-right">Добавить</a>
+        </h3>
     </div>
 
     <form id="frmCreate" class="well hidden validate" action="/Idea/Add">

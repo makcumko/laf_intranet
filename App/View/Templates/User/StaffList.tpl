@@ -4,11 +4,15 @@
 </script>
 <div>
     <div class="title">
-        <h3>Персонал</h3>
+        <h3>
+            Персонал
+            {if $_user.flag_admin}
+                <a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=login]').focus()" class="btn btn-primary pull-right">Добавить</a>
+            {/if}
+        </h3>
     </div>
 
     {if $_user.flag_admin}
-        <p><a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=login]').focus()" class="btn btn-primary">Добавить</a></p>
         <form id="frmCreate" class="well hidden validate" action="/Staff/Add">
             <legend>Добавить пользователя</legend>
             <div><input type="text" name="login" class="input-xxlarge validate-required" placeholder="Логин нового пользователя"/></div>

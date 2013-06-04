@@ -2,6 +2,7 @@
 namespace App\Model\Gateway;
 
 class Contacts extends \App\Model\DB\AbstractDBTable {
+
     function __construct() {
         parent::__construct("contacts");
     }

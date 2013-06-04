@@ -13,6 +13,15 @@ class Users extends AbstractService {
     const SALT = ""; // пока так для простоты
     const STAFF_PAGESIZE = 20;
 
+    public $contactTypes = [
+        'Email' => ['name' => 'E-mail', 'placeholder' => 'vasiliy@pupkin.ru', 'required' => true],
+        'Phone' => ['name' => 'Телефон', 'placeholder' => '+7-123-4567890', 'required' => true],
+        'Internal' => ['name' => 'Внутренний номер', 'placeholder' => '0000', 'required' => false],
+        'Skype' => ['name' => 'Skype', 'placeholder' => 'vasiliy.pupkin', 'required' => true],
+        'ICQ' => ['name' => 'ICQ', 'placeholder' => '000000000', 'required' => false],
+        'Misc' => ['name' => 'Другое', 'placeholder' => 'Произвольный контакт', 'required' => false],
+    ];
+
     function __construct() {
         $this->userGateway = \App\Model\Registry::Singleton("\App\Model\Gateway\Users");
         $this->contactGateway = \App\Model\Registry::Singleton("\App\Model\Gateway\Contacts");

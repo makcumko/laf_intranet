@@ -48,7 +48,7 @@
 
             {foreach from=$result.contacts key=type item=contact}
                 <tr>
-                    <th>{$type}</th>
+                    <th>{$contactTypes[$type]['name']}</th>
                     <td>
                         {foreach from=$contact item=item}
                             <div>

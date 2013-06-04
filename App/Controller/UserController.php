@@ -126,6 +126,7 @@ class UserController extends AbstractController
         $this->addBreadCrumb($user['fullname'], "/Staff/View/{$user['id']}");
 
         $this->bind("departments", $this->userService->departmentGateway->filter([], ["name" => "ASC"]));
+        $this->bind("contactTypes", $this->userService->contactTypes);
 
         return $user;
 

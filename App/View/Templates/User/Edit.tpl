@@ -116,11 +116,11 @@
         <div id="dvContacts">
             {foreach from=$result.contacts key=type item=contact}
                 <div class="control-group contact-{$type}">
-                    <label class="control-label" for="about">{$type}</label>
+                    <label class="control-label" for="about">{$contactTypes[$type]['name']}</label>
                     <div class="controls">
                         {foreach from=$contact item=item}
                             <p>
-                                <input type="text" name="contact_{$type}_value[]" value="{$item.value}" class="validate-required" placeholder="{$type}"/>
+                                <input type="text" name="contact_{$type}_value[]" value="{$item.value}" {if $contactTypes[$type]['required']}class="validate-required"{/if} placeholder="{$contactTypes[$type]['placeholder']}"/>
                                 <input type="text" name="contact_{$type}_comment[]" value="{$item.comment}" class="input-xxlarge" placeholder="Комментарий"/>
                                 <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
                             </p>
@@ -130,6 +130,22 @@
             {/foreach}
 
             {* some obligatory fields *}
+            {foreach from=$contactTypes key=type item=ct}
+                {if $ct.required && empty($result.contacts[$type])}
+                    <div class="control-group contact-{$type}">
+                        <label class="control-label">{$ct.name}</label>
+                        <div class="controls">
+                            <p>
+                                <input type="text" name="contact_{$type}_value[]" value="" {if $ct.required}class="validate-required"{/if} placeholder="{$ct.placeholder}" title="{$ct.name}"/>
+                                <input type="text" name="contact_{$type}_comment[]" value="" class="input-xxlarge" placeholder="Комментарий"/>
+                                <a href="javascript: void(0)" onclick="delContact(this)"><i class="icon-remove"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                {/if}
+            {/foreach}
+
+            {*
             {if empty($result.contacts.Email)}
                 <div class="control-group contact-Email">
                     <label class="control-label">Email</label>
@@ -178,17 +194,15 @@
                     </div>
                 </div>
             {/if}
+            *}
         </div>
         <div class="control-group">
             <label class="control-label">Добавить контакт</label>
             <div class="controls">
                 <select id="ddlContactType">
-                    <option value="Email">Email</option>
-                    <option value="Phone">Телефон</option>
-                    <option value="Internal">Внутренний номер</option>
-                    <option value="Skype">Skype</option>
-                    <option value="ICQ">ICQ</option>
-                    <option value="Misc">Дополнительно</option>
+                    {foreach from=$contactTypes key=type item=ct}
+                        <option value="{$type}">{$ct.name}</option>
+                    {/foreach}
                 </select>
                 <a href="javascript: addContact()" class="btn btn-primary">Добавить</a>
             </div>

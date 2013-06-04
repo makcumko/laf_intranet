@@ -39,7 +39,7 @@ class StaffController extends AbstractController
         $this->block("main", "User/Info");
         $user = $this->userService->GetInfo($id);
         $this->addBreadCrumb($user['fullname'], "/Staff/View/{$user['id']}");
-
+        $this->bind("contactTypes", $this->userService->contactTypes);
         return $user;
     }
 
@@ -100,6 +100,7 @@ class StaffController extends AbstractController
 
 
         $this->bind("departments", $this->userService->departmentGateway->filter([], ["name" => "ASC"]));
+        $this->bind("contactTypes", $this->userService->contactTypes);
 
         return $user;
     }

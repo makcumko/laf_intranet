@@ -35,7 +35,7 @@
                 Автор: <a href="/Staff/View/{$result.author_id}">{$result.author|display}</a>
                 <a href="/Images/Main/1/0/User={$result.author_id}">(посмотреть все его изображения)</a>
             </div>
-            <div class="description">Описание{$result.description|display|parse_tags:"/Images/Main/1/0/Tag=#"}</div>
+            <div class="description">Описание: {$result.description|display|parse_tags:"/Images/Main/1/0/Tag=#"}</div>
         </div>
 
         <div class="clearfix"></div>

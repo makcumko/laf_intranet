@@ -112,7 +112,14 @@ class UserController extends AbstractController
 
 
     public function Main() {
-        return $this->callController("UserController", "Profile");
+//        return $this->callController("UserController", "Profile");
+        $id = $this->user['id'];
+
+        $this->block("main", "User/Info");
+        $user = $this->userService->GetInfo($id);
+        $this->addBreadCrumb($user['fullname'], "/Staff/View/{$user['id']}");
+        $this->bind("contactTypes", $this->userService->contactTypes);
+        return $user;
     }
 
 

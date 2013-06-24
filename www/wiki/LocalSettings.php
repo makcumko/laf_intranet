@@ -37,7 +37,7 @@ $wgStylePath = "$wgScriptPath/skins";
 
 ## The relative URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo             = "$wgStylePath/images/logo.jpg";
+$wgLogo             = "$wgScriptPath/images/logo.jpg";
 //echo $wgLogo;
 //die();
 

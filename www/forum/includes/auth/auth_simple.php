@@ -46,10 +46,12 @@ function login_simple(&$username, &$password)
     global $db;
     $sql = 'SELECT user_id, username, user_password, user_passchg, user_email, user_type
            FROM ' . USERS_TABLE . "
-           WHERE username_clean = '" . $db->sql_escape($auth['username']) . "'";
+           WHERE username_clean = '" . $db->sql_escape(utf8_clean_string($auth['username'])) . "'";
     $result = $db->sql_query($sql);
     $row = $db->sql_fetchrow($result);
     $db->sql_freeresult($result);
+
+//    var_dump($sql);
 
     if ($row){
         $res = array(

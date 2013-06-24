@@ -10,6 +10,7 @@
                     <li {if $mainmenu == 'Documents'}class="active"{/if}><a href="/Documents/">Документы</a></li>
                     <li {if $mainmenu == 'Images'}class="active"{/if}><a href="/Images/">Галерея</a></li>
                     <li {if $mainmenu == 'Forum'}class="active"{/if}><a href="/forum">Форум</a></li>
+                    <li {if $mainmenu == 'Wiki'}class="active"{/if}><a href="/wiki">Wiki</a></li>
                     <li {if $mainmenu == 'User'}class="active"{/if}><a href="/User/Profile">Мой профиль</a></li>
                 </ul>
                 <ul class="nav pull-right">

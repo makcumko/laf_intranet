@@ -4,3 +4,4 @@ App/View/Cache
 Data/Database/*.json
 .idea/
 www/forum/cache/*.php
+www/forum/wiki/*.php

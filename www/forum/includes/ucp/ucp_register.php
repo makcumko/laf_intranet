@@ -30,7 +30,7 @@ class ucp_register
 		global $config, $db, $user, $auth, $template, $phpbb_root_path, $phpEx;
 
 		//
-		if ($config['require_activation'] == USER_ACTIVATION_DISABLE)
+		if ($config['require_activation'] == USER_ACTIVATION_DISABLE && !SiteSync::checkToken())
 		{
 			trigger_error('UCP_REGISTER_DISABLE');
 		}
@@ -306,6 +306,7 @@ class ucp_register
 
 				// Register user...
 				$user_id = user_add($user_row, $cp_data);
+                if (SiteSync::checkToken()) { echo "<!-- PHPBB_SYNC[user_id=$user_id] -->\n"; }
 
 				// This should not happen, because the required variables are listed above...
 				if ($user_id === false)

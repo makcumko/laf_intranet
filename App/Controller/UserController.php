@@ -20,6 +20,10 @@ class UserController extends AbstractController
         $this->addBreadCrumb("Вход", "/User/Login");
         $this->block("main", "User/Login");
 
+        if ($this->user['id']) {
+            $this->redirect("/");
+        }
+
         if ($login) {
             if ($this->userService->Login($login, $password)) {
                 $this->redirect($_SERVER['HTTP_REFERER'] ?: "/");
@@ -29,9 +33,7 @@ class UserController extends AbstractController
                 return false;
             }
         }
-        if ($this->user['id']) {
-            $this->redirect("/");
-        }
+
     }
 
     public function Logout() {

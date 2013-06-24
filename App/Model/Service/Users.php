@@ -36,7 +36,12 @@ class Users extends AbstractService {
 
         if (!empty($this->user)) {
             $_SESSION['user_id'] = $this->user['id'];
-            \App\Model\Registry::Set("user", $this->user);
+            \App\Model\Registry::set("user", $this->user);
+
+            setcookie('userinfo_name', $this->user['fullname'], time()+60*60*24*30, '/');
+            setcookie('userinfo_login', $this->user['login'], time()+60*60*24*30, '/');
+            setcookie('userinfo_password', $this->user['password'], time()+60*60*24*30, '/');
+
             return true;
         } else {
             return false;
@@ -91,6 +96,12 @@ class Users extends AbstractService {
             $this->user = $this->userGateway->read($id);
             $this->userGateway->update($id, ['last_action' => date("Y-m-d H:i:s")]);
             \App\Model\Registry::Set("user", $this->user);
+
+            if (empty($_COOKIE['userinfo_name'])) {
+                setcookie('userinfo_name', $this->user['fullname'], time()+60*60*24*30, '/');
+                setcookie('userinfo_login', $this->user['login'], time()+60*60*24*30, '/');
+                setcookie('userinfo_password', $this->user['password'], time()+60*60*24*30, '/');
+            }
         }
     }
 

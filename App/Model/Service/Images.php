@@ -60,7 +60,7 @@ class Images extends AbstractService {
         }
 
         ob_end_clean();
-//        header('Content-Type: image/jpeg');
+        header('Content-Type: image/jpeg');
         readfile($resultFile);
         die();
     }

@@ -24,6 +24,9 @@ class ImagesController extends AbstractController
             }
         }
 
+        $this->bind("order", $order);
+        $this->bind("filter", $filter);
+
         return $this->imagesService->GetList($page, $order, $filterBy);
     }
 

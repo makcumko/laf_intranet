@@ -37,7 +37,7 @@ class HtmlProtocol implements AbstractProtocol {
 
         if (is_array($data)) $tpl->assign($data);
 
-        header('Content-type: text/html');
+//        header('Content-type: text/html');
 
         echo $this->smarty->fetch($tpl);
     }

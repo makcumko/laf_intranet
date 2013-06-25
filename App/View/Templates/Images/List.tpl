@@ -2,7 +2,7 @@
     <div class="title">
         <h3>
             Галерея
-            <a href="javascript: $('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus()" class="btn btn-primary pull-right">Добавить</a>
+            <a href="javascript: void(0)" onclick="$('#frmCreate').removeClass('hidden'); $('#frmCreate input[name=title]').focus();" class="btn btn-primary pull-right">Добавить</a>
         </h3>
     </div>
 

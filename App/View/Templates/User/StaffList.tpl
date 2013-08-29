@@ -38,7 +38,7 @@
             {if !empty($result.items)}
                 {foreach from=$result.items item=row}
                     <tr onclick="document.location = '/Staff/View/{$row.id}'">
-                        <td><img src="/Images/View/{$row.avatar_id}/80/80"/></td>
+                        <td width="80"><img src="/Images/View/{$row.avatar_id}/80/80"/></td>
                         <td>{$row.fullname|display}</td>
                         <td>
                             {if !empty($row.contacts['Internal'])}

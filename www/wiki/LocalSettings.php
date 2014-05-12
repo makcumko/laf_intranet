@@ -76,6 +76,12 @@ $wgMemCachedServers = array();
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
 $wgEnableUploads = true;
+
+$wgFileExtensions = array('png','gif','jpg','jpeg','doc','xls','pdf','ppt','tiff','bmp','docx', 'xlsx', 'pptx','ps','odp','odg','zip','rar');
+
+$wgUploadSizeWarning = 2147483648;
+$wgMaxUploadSize = 2147483648;
+
 #$wgUseImageMagick = true;
 #$wgImageMagickConvertCommand = "/usr/bin/convert";
 
@@ -85,7 +91,7 @@ $wgUseInstantCommons = false;
 ## If you use ImageMagick (or any other shell command) on a
 ## Linux server, this will need to be set to the name of an
 ## available UTF-8 locale
-$wgShellLocale = "en_US.utf8";
+$wgShellLocale = "ru_RU.utf8";
 
 ## If you want to use image uploads under safe mode,
 ## create the directories images/archive, images/thumb and
@@ -136,7 +142,7 @@ $wgGroupPermissions['*']['edit'] = false;
 # but check specific extension documentation for more details
 # The following extensions were automatically enabled:
 require_once( "$IP/extensions/WikiEditor/WikiEditor.php" );
-
+require_once("$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php");
 
 # End of automatically generated settings.
 # Add more configuration options below.
